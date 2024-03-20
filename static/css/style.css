@@ -1,0 +1,298 @@
+* {
+    font-family: "Raleway", sans-serif;
+}
+
+.navbar {
+    border-bottom: 1px solid #bebebe;
+}
+
+.login-card {
+    border: 1px solid #bebebe;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.signup-card {
+    border: 1px solid #bebebe;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.add-post-card {
+    border: 1px solid #bebebe;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+#login-submit-btn {
+    width: 100%;
+}
+
+#signup-submit-btn {
+    width: 100%;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+}
+
+.card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.card-img-top {
+    border-radius: 0;
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Adjust opacity as needed */
+    color: white;
+    padding: 10px;
+    transition: opacity 0.3s;
+    opacity: 0;
+}
+
+.card:hover .card-overlay {
+    opacity: 1;
+}
+
+.col-lg-4 {
+    padding: 0 10px 10px 10px;
+}
+.col-lg-6 {
+    padding: 0 5px 5px 5px;
+}
+
+.comment-form {
+    width: 100%;
+}
+
+.comments {
+    padding: 0;
+}
+
+.comment-body {
+    border-bottom: 1px #bebebe solid;
+}
+
+#comment {
+    border-radius: 0;
+    border: none;
+}
+
+.comment-btn {
+    border-radius: 5px 0 0 5px;
+    margin-left: 5px;
+}
+
+.form-control:focus {
+    outline: none;
+    /* Remove outline when text box is focused */
+    box-shadow: none;
+    /* Remove box shadow when text box is focused */
+}
+
+.card-title {
+    font-size: 12px;
+}
+
+.card-text {
+    font-size: 12px;
+    color: #848484;
+}
+
+#viewImageBtn {
+    background: none;
+    border: none;
+    font-size: 20px;
+}
+
+#downloadBtn {
+    background: none;
+    border: none;
+    font-size: 20px;
+}
+
+/* Overlay styles */
+.overlay {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.overlay img {
+    scale: 1.2;
+}
+
+/* Close button styles */
+.closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 1;
+    /* Ensure the close button is displayed above the image */
+}
+
+/* Overlay image styles */
+.overlay-content {
+    display: block;
+    margin: auto;
+    max-width: 80%;
+    max-height: 80%;
+}
+
+.searchbar {
+    height: 40px;
+    background-color: #353b48;
+    border-radius: 30px;
+    padding: 10px;
+    padding-top: 9px;
+    margin: 0;
+}
+
+.search_input {
+    color: white;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    caret-color: transparent;
+    line-height: 18px;
+    transition: width 0.4s linear;
+    padding: 0;
+}
+
+.searchbar:hover>.search_input {
+    padding: 0 10px;
+    width: 450px;
+    caret-color: #fff;
+    transition: width 0.4s linear;
+}
+
+.search_icon {
+    height: 25px;
+    width: 25px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-link {
+    font-size: 20px;
+    line-height: 22px;
+    padding: 0;
+    display: flex;
+}
+
+.like-btn {
+    font-size: 16px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: 1px #bebebe solid;
+    border-radius: 10px;
+    padding: 5px 12px 2px 12px;
+    color: #848484;
+    border-color: #848484;
+    transition: 0.5s;
+}
+.like-btn:hover {
+    color: #000;
+    border-color: #000;
+}
+
+.delete-btn {
+    font-size: 16px;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    border: 1px #bebebe solid;
+    border-radius: 10px;
+    padding: 5px 12px 2px 12px;
+    color: #848484;
+    border-color: #848484;
+    transition: 0.5s;
+}
+
+.bi-heart-fill::before {
+    margin: 0;
+    padding: 0;
+}
+
+.no-cmt {
+    border-bottom: #bebebe solid 1px;
+    padding-bottom: 10px;
+}
+
+.search-btn-home {
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    border-color: #bebebe;
+}
+.search-btn-home:hover {
+    background-color: #fff;
+    color: #000;
+    border-color: #bebebe;
+}
+.search-form-home {
+    border-right: none;
+    border-color: #bebebe;
+}
+.search-btn-home:focus {
+    background-color: #fff;
+    color: #000;
+}
+.search-form-home:focus {
+    border-color: #bebebe;
+}
+
+.search_profile_img {
+    padding: 10px;
+    width: 100%;
+}
+
+.profile-info {
+    padding: 0;
+}
+
+.notification-badge {
+    position: relative;
+    top: -15px;
+    right: 10px;
+    font-size: 10px;
+    font-weight: 500;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.likescount {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.dropdown {
+    position: absolute;
+    display: flex;
+    justify-content:end;
+    font-size: 20px;
+}

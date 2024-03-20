@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title text-center">Add Post</h1>
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image:</label>
+                        <input type="file" id="image" name="image" class="form-control" accept="image/*" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="caption" class="form-label">Caption:</label>
+                        <textarea id="caption" name="caption" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <input type="hidden" id="user_id" name="user_id" value="{{ current_user.get_id() }}">
+                    <input type="hidden" id="username" name="username" value="{{ current_user.username }}">
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

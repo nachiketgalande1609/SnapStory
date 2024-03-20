@@ -1,0 +1,44 @@
+<!-- search_results.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mt-4 mb-4">
+    <h2>Search Results for "{{ query }}"</h2>
+    {% if user_results %}
+</div>
+<div class="row mb-4">
+    {% for user in user_results %}
+    <div class="col-md-2 mb-4">
+        <div class="card">
+            <a href="{{ url_for('profile', user_id=user._id) }}" class="card-link">
+                {% if user.profile_image %}
+                <img src="../{{ user.profile_image }}" alt="Profile Image" class="rounded-circle search_profile_img">
+                {% else %}
+                <img src="../static/images/avatar.jpg"
+                    alt="Profile Image" class="rounded-circle search_profile_img">
+                {% endif %}
+            </a>
+            <div class="card-body pt-1 pb-2 text-center">
+                <h5 class="card-title">{{ user.username }}</h5>
+                <p class="card-text">{{ user.email }}</p>
+                {% if user._id|string() != current_user.id %}
+                {% set user_id_str = user._id|string() %}
+                {% if current_user and user_id_str in following_list %}
+                <form action="{{ url_for('unfollow_user', recipient_user_id=user._id) }}" method="post">
+                    <button type="submit" class="btn btn-success w-100">Following</button>
+                </form>
+                {% else %}
+                <form action="{{ url_for('follow_user', recipient_user_id=user._id) }}" method="post">
+                    <button type="submit" class="btn btn-primary w-100">Follow</button>
+                </form>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>No user results found.</p>
+{% endif %}
+{% endblock %}

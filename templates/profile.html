@@ -1,0 +1,84 @@
+<!-- public_profile.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mt-4 profile-info position-relative">
+    <div class="col-md-3">
+        <div class="card-body text-center">
+            {% if user.profile_image %}
+            <img src="../{{ user.profile_image }}" class="rounded-circle mb-3 w-50" alt="Profile Image">
+            {% else %}
+            <img src="../static/images/avatar.jpg" class="rounded-circle mb-3 w-50" alt="Profile Image">
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-9">
+        <h4>{{ user.username }}</h4>
+        <h5>{{ user.email }}</h5>
+    </div>
+
+    {% if user._id|string() != current_user.id %}
+    <div class="dropdown ml-auto"> <!-- Use ml-auto class to align right -->
+        <i class="bi bi-three-dots follow-dropdown" data-bs-toggle="dropdown" role="button"></i>
+
+        <ul class="dropdown-menu dropdown-menu-end"> <!-- Use dropdown-menu-end class to align dropdown to the right -->
+            {% if current_user and user_id_str in following_list %}
+            <li><form action="{{ url_for('unfollow_user', recipient_user_id=user._id) }}" method="post">
+                <a type="submit" class="dropdown-item"onclick="this.parentNode.submit();">Following</a>
+            </form></li>
+            {% else %}
+            <form action="{{ url_for('follow_user', recipient_user_id=user._id) }}" method="post">
+                <a type="submit" class="dropdown-item" onclick="this.parentNode.submit();">Follow</a>
+            </form>
+            {% endif %}
+        </ul>
+        {% set user_id_str = user._id|string() %}
+        {% if current_user and user_id_str in following_list %}
+        <span class="badge text-bg-success ms-2 fw-light pt-2">Followed</span>
+        {% else %}
+        <span class="badge text-bg-danger ms-2 fw-light pt-2">Not Followed</span>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+<div class="row mt-4">
+    <div class="col-lg-4 text-center">
+        <h5><i class="bi bi-image-fill"></i> Posts {{ post_count }}</h5>
+    </div>
+    <div class="col-lg-4 text-center">
+        <h5>Followers {{ followers_count }}</h5>
+    </div>
+    <div class="col-lg-4 text-center">
+        <h5>Following {{ following_count }}</h5>
+    </div>
+</div>
+<div class="row" data-masonry='{"percentPosition": true }'>
+    {% for post in posts %}
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-overlay">
+                <div class="row">
+                    <div class="col-auto">
+                        {% if post.profile_image %}
+                        <img src="../{{ post.profile_image }}" alt="Profile Image" class="rounded-circle"
+                            style="width: 40px; height: 40px;">
+                        {% else %}
+                        <img src="../static/images/avatar.jpg" alt="Profile Image" class="rounded-circle"
+                            style="width: 40px; height: 40px;">
+                        {% endif %}
+                    </div>
+                    <div class="col ps-0">
+                        <p class="card-title mb-0">{{ post.username }}</p>
+                        <p class="card-text">{{ post.caption }}</p>
+                    </div>
+                </div>
+
+            </div>
+            <a href="{{ url_for('post.post_details', post_id=post._id) }}"><img
+                    src="{{ url_for('static', filename=post.image_filename) }}" class="card-img-top" alt="..."></a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

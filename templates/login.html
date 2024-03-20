@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex flex-column align-items-center mt-4">
+    <div class="login-card">
+        <h1 class="mb-4 text-center">Login Page</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-danger" role="alert">
+            {{message}}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <form id="login-form" method="post" action="{{ url_for('user.login') }}">
+            <div class="input-group mb-4">
+                <div class="input-group-text">Username</div>
+                <input type="text" class="form-control" name="username" id="login_username_input" required>
+            </div>
+            <div class="input-group mb-4">
+                <div class="input-group-text">Password</div>
+                <input type="password" class="form-control" name="password" id="login_password_input" required>
+            </div>
+            <div class="input-group justify-content-center">
+                <button id="login-submit-btn" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex flex-column align-items-center mt-4">
+    <div class="signup-card">
+        <h1 class="mb-4 text-center">Signup Page</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-danger" role="alert">
+            {{message}}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <form id="signup-form" method="post" action="{{ url_for('user.signup') }}">
+            <div class="input-group mb-4">
+                <div class="input-group-text">Email</div>
+                <input type="email" class="form-control" name="email" id="signup_email_input" required>
+            </div>
+            <div class="input-group mb-4">
+                <div class="input-group-text">Username</div>
+                <input type="text" class="form-control" name="username" id="signup_username_input" required>
+            </div>
+            <div class="input-group mb-4">
+                <div class="input-group-text">Password</div>
+                <input type="password" class="form-control" name="password" id="signup_password_input" required>
+            </div>
+            <div class="input-group justify-content-center">
+                <button id="signup-submit-btn" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,114 @@
+<!-- post_details.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row py-5">
+    <div class="col-md-6">
+        <div class="card mb-2">
+            <img src="{{ url_for('static', filename=post.image_filename) }}" class="card-img-top" alt="Post Image">
+            <a id="viewImageBtn" class="btn btn-primary btn-sm position-absolute bottom-0 end-0 mb-2 me-2">
+                <i class="bi bi-arrows-angle-expand"></i>
+            </a>
+            <a href="{{ url_for('static', filename=post.image_filename) }}" id="downloadBtn"
+                class="btn btn-primary btn-sm position-absolute bottom-0 start-0 mb-2 ms-2" download>
+                <i class="bi bi-download"></i>
+            </a>
+        </div>
+        <div class="card-body position-relative">
+            <p class="mb-2"><i class="bi bi-clock me-2"></i>{{ post.creation_date.strftime('%d %b %Y %I:%M %p') }}</p>
+            {% if post.likes %}
+            <p class="likescount mb-2">{{ post.likes }} Likes</p>
+            {% else %}
+            <p class="likescount mb-2">0 Likes</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="row">
+                <div class="col-auto d-flex align-items-center m-2">
+                    {% if post_profile_image %}
+                    <img src="../{{ post_profile_image }}" alt="Profile Image" class="rounded-circle"
+                        style="width: 60px; height: 60px;">
+                    {% else %}
+                    <img src="../static/images/avatar.jpg" alt="Profile Image" class="rounded-circle"
+                        style="width: 60px; height: 60px;">
+                    {% endif %}
+                </div>
+                <div class="col ps-0">
+                    <div class="card-body ps-0">
+                        <h2 class="card-title">{{ post.caption }}</h2>
+                        <p class="card-text">Posted by: <strong>{{ post.username }}</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-0">
+                <form action="{{ url_for('post.like_post', post_id=post._id) }}" method="post">
+                    <!-- Replace button with a span element containing the icon -->
+                    {% if current_user.is_authenticated and current_user.id in post.likers %}
+                    <span class="like-btn" style="cursor: pointer;" onclick="this.parentNode.submit();"><i
+                            class="bi bi-heart-fill text-danger"></i></span>
+                    {% else %}
+                    <span class="like-btn" style="cursor: pointer;" onclick="this.parentNode.submit();"><i
+                            class="bi bi-heart-fill"></i></span>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body comments">
+                {% if comments %}
+                <ul class="list-group list-group-flush">
+                    {% for comment in comments %}
+                    <div class="card-body comment-body">
+                        <div class="row">
+                            <div class="col-auto">
+                                {% if comment.profile_image %}
+                                <img src="../{{ comment.profile_image }}" alt="Profile Image" class="rounded-circle"
+                                    style="width: 50px; height: 50px;">
+                                {% else %}
+                                <img src="../static/images/avatar.jpg" alt="Profile Image" class="rounded-circle"
+                                    style="width: 50px; height: 50px;">
+                                {% endif %}
+                            </div>
+                            <div class="col ps-0 position-relative">
+                                <h6 class="commenter-username mb-0">{{ comment.commenter_username }}</h6>
+                                <p class="mb-0">{{ comment.text }}</p>
+                                {% if comment.commenter_id == current_user.id %}
+                                <form action="{{ url_for('post.delete_comment', comment_id=comment._id) }}"
+                                    method="post">
+                                    <span class="delete-btn" style="cursor: pointer;"
+                                        onclick="this.parentNode.submit();"><i class="bi bi-trash"></i></span>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-center mt-2 mb-0 no-cmt">No comments yet</p>
+                {% endif %}
+                <form action="{{ url_for('post.add_comment', post_id=post._id) }}" method="post">
+                    <div class="input-group">
+                        <input type="text" name="comment" id="comment" class="form-control"
+                            placeholder="Type your comment" aria-label="Recipient's username"
+                            aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary comment-btn" type="submit">Comment</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="imageOverlay" class="overlay">
+    <span class="closeBtn" onclick="closeOverlay()">&times;</span>
+    <img class="overlay-content" id="overlayImage" src="../{{ url_for('static', filename=post.image_filename) }}">
+</div>
+{% endblock %}
